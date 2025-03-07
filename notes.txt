@@ -1,0 +1,50 @@
+1. What is React Router DOM?
+React Router DOM is a library used for routing in React applications. It allows navigation between different components without reloading the page.
+
+2. Installation
+To install React Router DOM, use:
+
+npm install react-router-dom
+
+3. createBrowserRouter
+✅ Function to create routes in React.
+
+Syntax:
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/about",
+    element: <About />
+  }
+]);
+🔥 What Does It Do?
+It defines the path and which component (element) should render on that path.
+It works with Browser History API to prevent page reloads.
+
+4. RouterProvider
+✅ Special component that provides the router instance to your entire app.
+
+Syntax:
+<RouterProvider router={appRouter} />
+
+What Happens Here?
+The router prop is passed.
+It renders the correct component based on the current URL.
+Without RouterProvider, routing won't work.
+
+5. Link Component
+✅ The Link component is used to navigate between pages without refreshing the page.
+
+Syntax:
+<Link to="/about">About</Link>
+
+How Is It Different from <a> Tag?
+
+<a> Tag	Link Component            <Link>
+Refreshes the page	              Does not refresh
+Default HTML tag	              React Component
+Breaks Single Page App	          Maintains Single Page App
