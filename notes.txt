@@ -1,5 +1,6 @@
 1. What is React Router DOM?
-React Router DOM is a library used for routing in React applications. It allows navigation between different components without reloading the page.
+React Router DOM is a library used for routing in React applications.
+It allows navigation between different components without reloading the page.
 
 2. Installation
 To install React Router DOM, use:
@@ -46,5 +47,126 @@ How Is It Different from <a> Tag?
 
 <a> Tag	Link Component            <Link>
 Refreshes the page	              Does not refresh
-Default HTML tag	              React Component
+Default HTML tag	                React Component
 Breaks Single Page App	          Maintains Single Page App
+
+What is NavLink?
+✅ NavLink is a special component in React Router that is used to create navigation links with active styles.
+
+How It Works?
+It automatically gives an object as an argument to the className prop.
+
+That object contains:
+isActive → true if the link is active, otherwise false
+isPending → true if the link is still loading (optional)
+isTransitioning → true if the route is changing (optional)
+
+Syntax:
+
+<NavLink 
+  to="/about" 
+  className={({ isActive }) => isActive ? "active" : ""}
+>
+  About
+</NavLink>
+
+What does className Expect?
+✅ It expects a function that automatically receives an object.
+
+How to Use?
+Destructure the isActive property from the object.
+Apply different CSS classes based on the value of isActive
+
+<NavLink 
+  to="/home" 
+  className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+>
+  Home
+</NavLink>
+
+✅ Error Handling in React Router 
+In React Router v6, error handling is done using:
+
+errorElement → To show custom error pages.
+useRouteError() → To access error details inside the error page.
+
+1️⃣ What is errorElement?
+👉 It is used to show custom error pages when:
+1. The user enters the wrong URL (404 Error)
+2. There is a problem while rendering the component.
+🔑 Syntax:
+
+{
+  path: "/about",
+  element: <About />,
+  errorElement: <ErrorPage />
+}
+
+2️⃣ What is useRouteError()?
+👉 It is a hook that gives information about the error like:
+
+error.status → Error Code (404, 500)
+error.statusText → Error Message (Not Found, Internal Server Error)
+error.data → Any extra error data
+🔑 Syntax:
+
+import { useRouteError } from "react-router-dom";
+
+const ErrorPage = () => {
+  const error = useRouteError();
+
+  return (
+    <div>
+      <h1>{error.status} - {error.statusText}</h1>
+      <p>{error.data || "Something went wrong!"}</p>
+    </div>
+  );
+};
+
+💪 What is the Best Way to Add errorElement?
+Situation	                 How to Add
+Parent + Child Routes	     Add error only to the Parent Route ✅
+Independent Routes	       Add errorElement to every route
+
+Best Practice:
+Always add errorElement to parent routes only, unless your routes are independent.
+
+🔥 What is Dynamic Routing?
+Dynamic Routing means creating routes where URL parameters (like IDs, names, etc.) can change based on user input or data.
+
+Example URL:
+/user/rohit
+/user/123
+
+🛠️ How to Create Dynamic Routes?
+First, define your route with : before the parameter name.
+
+{
+    path: "/user/:name",  // :name is dynamic
+    element: <Profile />
+}
+
+💡 How to Access URL Parameters?
+React Router provides a hook 👉 useParams()
+
+const { name } = useParams();
+console.log(name);  // It will give whatever is written in the URL
+
+🔑 Important Points:
+Concept	Explanation
+useParams()	Used to access dynamic parameters from the URL
+Route with :	This makes the route dynamic
+String Always Returned	All URL params are strings
+Validation	Use Regex or custom conditions to validate parameters
+✅ Always validate and convert the parameter type before using it in your logic.
+
+
+🚨 How to Handle Wrong Dynamic Routes?
+✅ Use errorElement in routes to show custom error pages.
+
+🎯 Interview Questions (Very Important 🔥)
+Question	                                     Answer
+What is Dynamic Routing?	                     Routes that accept dynamic parameters like ID, name, etc.
+How to access dynamic parameters?	             Using the useParams() hook
+Do dynamic parameters always return string?	   Yes, React Router always gives string values
+How to show an error page for wrong URLs?	     Use errorElement with useRouteError()
