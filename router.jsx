@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Link, NavLink, Outlet, RouterProvider,useRouteError } from "react-router-dom";
+import { createBrowserRouter, Link, Navigate, NavLink, Outlet, RouterProvider,useNavigate,useRouteError } from "react-router-dom";
 
 
 // const About = () => {
@@ -166,6 +166,71 @@ const PortfolioRoute = createBrowserRouter([
     },
 ]);
 
+// useNavigate() => Hook to navigate between routes programmatically.
+
+const Login = () => {
+const navigate = useNavigate();
+ function back (){
+    navigate(-1)
+ }
+    return (
+    <>
+    <h1>Loign</h1>
+    <button onClick={back}>Go Back</button>
+    </>
+)
+}
+
+
+
+const HomeComp = () => {
+
+    const navigate = useNavigate();
+    function goToLogin () {
+        navigate("/login")
+    }
+
+    return (
+        <>
+        <h1>Home Page</h1>
+       <button onClick={goToLogin}>Login</button>
+        </>
+    )
+}
+
+const appRouter = createBrowserRouter([
+    {
+        path:"/",
+        element:<HomeComp />
+    },
+    {
+        path:"/login",
+        element:<Login />
+    }
+])
+
+// navigate => 
+    const HomeDashbord = () => {
+        return <h1>Home Page</h1>
+    }
+
+
+
+    const Dashboard = ({isLoggedIn}) => {
+        return isLoggedIn ?  <h1>Dashboard Page</h1> : <Navigate to="/" />
+           
+    }
+    const dashRouter = createBrowserRouter([
+        {
+            path:"/",
+            element:<HomeDashbord />
+        },
+        {
+            path:"/dashboard",
+            element:<Dashboard isLoggedIn={true} />
+        }
+    ])
+    
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={PortfolioRoute}/>)
+root.render(<RouterProvider router={dashRouter}/>)

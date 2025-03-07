@@ -155,6 +155,7 @@ console.log(name);  // It will give whatever is written in the URL
 🔑 Important Points:
 Concept	Explanation
 useParams()	Used to access dynamic parameters from the URL
+
 Route with :	This makes the route dynamic
 String Always Returned	All URL params are strings
 Validation	Use Regex or custom conditions to validate parameters
@@ -170,3 +171,43 @@ What is Dynamic Routing?	                     Routes that accept dynamic paramet
 How to access dynamic parameters?	             Using the useParams() hook
 Do dynamic parameters always return string?	   Yes, React Router always gives string values
 How to show an error page for wrong URLs?	     Use errorElement with useRouteError()
+
+
+NavLink	                                   useNavigate()
+Used inside JSX	                           Used inside JavaScript functions
+Automatically adds active class	           Does not add any class
+Best for navigation links	                 Best for buttons, forms, or programmatic navigation
+
+🔑 1. useNavigate()
+👉 useNavigate() is a hook that helps to navigate between routes programmatically using JavaScript.
+
+Example:
+
+const navigate = useNavigate();
+navigate("/about");  // Navigates to /about route
+✅ Best for navigation on button click or any event.
+
+🔑 2. Go Back Navigation
+👉 We can navigate back to the previous page using:
+
+navigate(-1);
+
+🔑 3. <Navigate /> Component
+👉 It helps to redirect automatically without button clicks.
+
+Example:
+
+return isLoggedIn ? <Dashboard /> : <Navigate to="/" />
+✅ Used in Protected Routes or unauthorized access.
+
+🔥 Key Differences
+Method	               Purpose	                When to Use
+useNavigate()	         Navigation on Event	    Button Click
+<Navigate />          Automatic Redirection	    Protected Pages
+
+🔑 What is useSearchParams()?
+✅ A React Router DOM hook used to read, update, and delete query parameters from the URL.
+
+Example URL:
+👉 https://example.com/products?category=electronics&price=1000
+
